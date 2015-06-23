@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Paratize</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Paratize v0.1.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Paratize.html">Paratize</a></div>
+      <h1>
+        Paratize
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Provides a set of functions that does parallel processing on collection of data or functions.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/seantanly/elixir-paratize/blob/master/lib/paratize.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#pc_each/3">pc_each(arg_list, fun, kargs \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Provides a handy function to do parallel processing of each via chunks.
+It calls the fun with each argument.
+The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#pc_exec/2">pc_exec(fun_list, kargs \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Provides a handy function to do parallel processing of functions via chunks.
+It calls each fun in fun_list and returns the list of result. Keyword list is supported.
+Ordering of result is assured via sequential Task.await on collected Task pids.
+The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#pc_map/3">pc_map(arg_list, fun, kargs \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Provides a handy function to do parallel processing of map via chunks.
+It calls the fun with each argument and returns the list of result.
+Ordering of result is assured via sequential Task.await on collected Task pids.
+The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="pc_each/3">
+    <span class="signature"><strong>pc_each(arg_list, fun, kargs \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#pc_each/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Provides a handy function to do parallel processing of each via chunks.
+It calls the fun with each argument.
+The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores.</p>
+
+  </section>
+  
+    <a href="https://github.com/seantanly/elixir-paratize/blob/master/lib/paratize.ex#L11" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="pc_exec/2">
+    <span class="signature"><strong>pc_exec(fun_list, kargs \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#pc_exec/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Provides a handy function to do parallel processing of functions via chunks.
+It calls each fun in fun_list and returns the list of result. Keyword list is supported.
+Ordering of result is assured via sequential Task.await on collected Task pids.
+The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores.</p>
+<p>iex&gt; [fn -> 1 end, {:b, fn -> 2 end}, fn -> 3 end] |&gt; Paratize.pc_exec
+[1, {:b,2}, 3]</p>
+
+  </section>
+  
+    <a href="https://github.com/seantanly/elixir-paratize/blob/master/lib/paratize.ex#L50" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="pc_map/3">
+    <span class="signature"><strong>pc_map(arg_list, fun, kargs \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#pc_map/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Provides a handy function to do parallel processing of map via chunks.
+It calls the fun with each argument and returns the list of result.
+Ordering of result is assured via sequential Task.await on collected Task pids.
+The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores.</p>
+
+  </section>
+  
+    <a href="https://github.com/seantanly/elixir-paratize/blob/master/lib/paratize.ex#L29" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>
