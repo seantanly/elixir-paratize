@@ -12,7 +12,7 @@ defmodule Paratize.ChunkTest do
     ]
 
     {time, result} = :timer.tc fn ->
-      fun_list |> Paratize.Chunk.exec(size: 3, timeout: 1000)
+      fun_list |> Paratize.Chunk.exec(%Paratize.TaskOptions{mode: :chunk, size: 3, timeout: 1000})
     end
 
     assert result == [1,{:b,2},3,{:d,4},5]

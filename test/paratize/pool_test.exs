@@ -12,7 +12,7 @@ defmodule Paratize.PoolTest do
     ]
 
     {time, result} = :timer.tc fn ->
-      fun_list |> Paratize.Pool.exec(size: 3, timeout: 1000)
+      fun_list |> Paratize.Pool.exec(%Paratize.TaskOptions{mode: :pool, size: 3, timeout: 1000})
     end
 
     assert result == [1,{:b,2},3,{:d,4},5]

@@ -2,26 +2,10 @@ defmodule Paratize do
   @moduledoc """
   Provides a set of functions that does parallel processing on collection of data or functions.
 
-  Paratize.Pool contains the pool implementation of exec. (Default)
-
-  Paratize.Chunk contains the chunk implementation of exec.
+  There are two implementation strategies, `Paratize.Chunk` and `Paratize.Pool`.
+  Checkout `Paratize.TaskOptions` for what are the configurations available.
   """
 
-
-  @typedoc """
-  * size - number of workers, default: fun_list count. :schedulers will use the number of system cores.
-  * timeout - timeout in ms, integer, default: 5000, exit(:timeout,...) if no result is return by any of the workers within the period.
-  """
-  @type task_options :: [size: pos_integer, timeout: pos_integer]
-  @typedoc "Default :pool"
-  @type mode :: :chunk | :pool
-
-  defp get_module(mode) do
-    %{
-      chunk: Paratize.Chunk,
-      pool: Paratize.Pool,
-    } |> Dict.get(mode, Paratize.Pool)
-  end
 
   @doc """
   Parallel execution of the list of functions.
@@ -29,30 +13,26 @@ defmodule Paratize do
 
   ### Args
   * fun_list - list of functions to be executed
-  * `mode`
-  * `task_options`
+  * task_options - `Paratize.TaskOptions`
   """
-  @spec exec(List.t, mode, task_options) :: List.t
-  def exec(fun_list, mode, task_options \\ []) when is_atom(mode) do
-    module = get_module(mode)
-    fun_list |> module.exec(task_options)
-  end
+  @spec exec(List.t, Paratize.TaskOptions.t) :: List.t
+  def exec(fun_list, task_options=%Paratize.TaskOptions{mode: :chunk}), do: fun_list |> Paratize.Chunk.exec(task_options)
+  def exec(fun_list, task_options=%Paratize.TaskOptions{mode: :pool}), do: fun_list |> Paratize.Pool.exec(task_options)
 
   @doc """
   Parallel processing of .map function via `exec/2`.
-  Returns list of results in order with its arguments.
+  Returns list of results in order.
 
   ### Args
   * args_list - list of arguments to be applied to fun
   * fun - function taking in each argument
-  * `mode`
-  * `task_options`
+  * task_options - `Paratize.TaskOptions`
   """
-  @spec map(List.t, Fun, mode, task_options) :: List.t
-  def map(args_list, fun, mode, task_options \\ []) when is_atom(mode) do
+  @spec map(List.t, Fun, Paratize.TaskOptions.t) :: List.t
+  def map(args_list, fun, task_options=%Paratize.TaskOptions{}) do
     args_list |> Enum.map(fn(arg) ->
       fn -> fun.(arg) end
-    end) |> exec(mode, task_options)
+    end) |> exec(task_options)
   end
 
   @doc """
@@ -62,14 +42,13 @@ defmodule Paratize do
   ### Args
   * args_list - list of arguments to be applied to fun
   * fun - function taking in each argument
-  * `mode`
-  * `task_options`
+  * task_options - `Paratize.TaskOptions`
   """
-  @spec each(List.t, Fun, mode, task_options) :: :ok
-  def each(args_list, fun, mode, task_options \\ []) when is_atom(mode) do
+  @spec each(List.t, Fun, Paratize.TaskOptions.t) :: :ok
+  def each(args_list, fun, task_options=%Paratize.TaskOptions{}) do
     args_list |> Enum.map(fn(arg) ->
       fn -> fun.(arg); nil end # fn to return nil to ensure return value can be deallocated.
-    end) |> exec(mode, task_options)
+    end) |> exec(task_options)
     :ok
   end
 

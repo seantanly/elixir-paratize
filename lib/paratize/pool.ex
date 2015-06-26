@@ -6,25 +6,34 @@ defmodule Paratize.Pool do
   """
 
   @doc """
-  Does parallel processing of functions via pool of workers.
+  Does parallel processing of functions via pool of workers, using default `Paratize.TaskOptions`.
   Returns the list of result in order.
 
   ### Args:
     * fun_list - list of functions to execute in parallel.
-    * task_options - Keyword of options.
-  #### task_options:
-    * size - number of workers, default: fun_list count. :schedulers will use the number of system cores.
-    * timeout - timeout in ms, integer, default: 5000, exit(:timeout,...) if no result is return by any of the workers within the period.
 
   iex> [fn -> 1 end, {:b, fn -> 2 end}, fn -> 3 end] |> Paratize.Pool.exec
   [1, {:b,2}, 3]
 
   """
-  @spec exec(List.t, Paratize.task_options) :: List.t
-  def exec(fun_list, task_options \\ []) when is_list(fun_list) do
-    task_options = [size: Enum.count(fun_list), timeout: 5000] |> Keyword.merge(task_options)
-    if task_options[:size] == :schedulers, do: task_options = task_options |> Keyword.put(:size, :erlang.system_info(:schedulers))
-    worker_count = [Enum.count(fun_list), task_options[:size]] |> Enum.min
+  @spec exec(List.t) :: List.t
+  def exec(fun_list) when is_list(fun_list), do: exec(fun_list, %Paratize.TaskOptions{mode: :pool})
+
+  @doc """
+  Does parallel processing of functions via pool of workers.
+  Returns the list of result in order.
+
+  ### Args:
+    * fun_list - list of functions to execute in parallel.
+    * task_options - `Paratize.TaskOptions`
+
+  iex> [fn -> 1 end, {:b, fn -> 2 end}, fn -> 3 end] |> Paratize.Pool.exec(%Paratize.TaskOptions{mode: :pool})
+  [1, {:b,2}, 3]
+
+  """
+  @spec exec(List.t, Paratize.TaskOptions.t) :: List.t
+  def exec(fun_list, task_options=%Paratize.TaskOptions{mode: :pool}) when is_list(fun_list) do
+    worker_count = [Enum.count(fun_list), task_options.size] |> Enum.min
 
     worker_pids = 1..worker_count |> Enum.map(fn(_) ->
       spawn_link(__MODULE__, :worker_func, [self])
@@ -55,8 +64,8 @@ defmodule Paratize.Pool do
       {_sender, :job_result, {index, result}} ->
         do_exec(worker_pids, ifun_list, [{index, result} | acc], task_options)
     after
-      task_options[:timeout] ->
-        exit({:timeout, {__MODULE__, :pp_exec, task_options[:timeout]}})
+      task_options.timeout ->
+        exit({:timeout, {__MODULE__, :pp_exec, task_options.timeout}})
     end
   end
 

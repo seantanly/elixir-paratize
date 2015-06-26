@@ -12,7 +12,7 @@ defmodule ParatizeTest do
     end
 
     {time, result} = :timer.tc fn ->
-      args |> Paratize.each(worker_fun, :pool, size: 2)
+      args |> Paratize.each(worker_fun, %Paratize.TaskOptions{size: 2})
     end
 
     assert Set.equal?(
@@ -32,7 +32,7 @@ defmodule ParatizeTest do
     end
 
     {time, result} = :timer.tc fn ->
-      args |> Paratize.map(worker_fun, :pool, size: 2)
+      args |> Paratize.map(worker_fun, %Paratize.TaskOptions{size: 2})
     end
 
     assert Set.equal?(
