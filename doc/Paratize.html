@@ -36,6 +36,8 @@
           <li><a href="#summary">Summary</a></li>
         
         
+          <li><a href="#types_details">Types</a></li>
+        
         
           <li><a href="#functions_details">Functions</a></li>
         
@@ -46,6 +48,8 @@
       
         <section id="moduledoc" class="docstring">
           <p>Provides a set of functions that does parallel processing on collection of data or functions.</p>
+<p>Paratize.Pool contains the pool implementation of exec. (Default)</p>
+<p>Paratize.Chunk contains the chunk implementation of exec.</p>
 
         </section>
       
@@ -58,31 +62,26 @@
         <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
         <table class="summary">
           <tr>
-  <td class="summary_signature"><a href="#pc_each/3">pc_each(arg_list, fun, kargs \\ [])</a></td>
+  <td class="summary_signature"><a href="#each/4">each(args_list, fun, mode, task_options \\ [])</a></td>
   
-    <td class="summary_synopsis"><p>Provides a handy function to do parallel processing of each via chunks.
-It calls the fun with each argument.
-The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores</p>
+    <td class="summary_synopsis"><p>Parallel processing of .each function via <code class="inline">exec/2</code>.
+Returns :ok</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#pc_exec/2">pc_exec(fun_list, kargs \\ [])</a></td>
+  <td class="summary_signature"><a href="#exec/3">exec(fun_list, mode, task_options \\ [])</a></td>
   
-    <td class="summary_synopsis"><p>Provides a handy function to do parallel processing of functions via chunks.
-It calls each fun in fun_list and returns the list of result. Keyword list is supported.
-Ordering of result is assured via sequential Task.await on collected Task pids.
-The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores</p>
+    <td class="summary_synopsis"><p>Parallel execution of the list of functions.
+Returns list of results in order</p>
 </td>
   
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#pc_map/3">pc_map(arg_list, fun, kargs \\ [])</a></td>
+  <td class="summary_signature"><a href="#map/4">map(args_list, fun, mode, task_options \\ [])</a></td>
   
-    <td class="summary_synopsis"><p>Provides a handy function to do parallel processing of map via chunks.
-It calls the fun with each argument and returns the list of result.
-Ordering of result is assured via sequential Task.await on collected Task pids.
-The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores</p>
+    <td class="summary_synopsis"><p>Parallel processing of .map function via <code class="inline">exec/2</code>.
+Returns list of results in order with its arguments</p>
 </td>
   
 </tr>
@@ -91,72 +90,145 @@ The pool_size default is size of arg_list. Setting pool_size to :schedulers will
       
 
       
+        <section id="types_details" class="details_list">
+          <h2>Types <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></h2>
+          <div class="type_detail">
+  <p class="typespec" id="t:task_options/0">
+    <a href="#t:task_options/0">task_options</a> :: [size: pos_integer, timeout: pos_integer]
+  </p>
+  
+      <div class="typespec_doc"><ul>
+<li>size - number of workers, default: fun_list count. :schedulers will use the number of system cores.
+</li>
+<li>timeout - timeout in ms, integer, default: 5000, exit(:timeout,…) if no result is return by any of the workers within the period.
+</li>
+</ul>
+</div>
+  
+</div>
+<div class="type_detail">
+  <p class="typespec" id="t:mode/0">
+    <a href="#t:mode/0">mode</a> :: :chunk | :pool
+  </p>
+  
+      <div class="typespec_doc"><p>Default :pool</p>
+</div>
+  
+</div>
+
+        </section>
+      
 
       
         <section id="functions_details" class="details_list">
           <h2>Functions</h2>
           <section class="detail">
-  <div class="detail_header" id="pc_each/3">
-    <span class="signature"><strong>pc_each(arg_list, fun, kargs \\ [])</strong></span>
+  <div class="detail_header" id="each/4">
+    <span class="signature"><strong>each(args_list, fun, mode, task_options \\ [])</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
-      <a href="#pc_each/3" class="detail_link" title="Link to this function">#</a>
+      <a href="#each/4" class="detail_link" title="Link to this function">#</a>
       <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
     </div>
   </div>
   
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>each(<a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a>, Fun, <a href="#t:mode/0">mode</a>, <a href="#t:task_options/0">task_options</a>) :: :ok</li>
+      
+    </ul>
+  
   <section class="docstring">
-    <p>Provides a handy function to do parallel processing of each via chunks.
-It calls the fun with each argument.
-The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores.</p>
+    <p>Parallel processing of .each function via <code class="inline">exec/2</code>.
+Returns :ok</p>
+<h3>Args</h3>
+<ul>
+<li>args_list - list of arguments to be applied to fun
+</li>
+<li>fun - function taking in each argument
+</li>
+<li><code class="inline">mode</code>
+</li>
+<li><code class="inline">task_options</code>
+</li>
+</ul>
 
   </section>
   
-    <a href="https://github.com/seantanly/elixir-paratize/blob/v0.1.1/lib/paratize.ex#L11" class="view_source">Source</a>
+    <a href="https://github.com/seantanly/elixir-paratize/blob/master/lib/paratize.ex#L69" class="view_source">Source</a>
   
 </section>
 <section class="detail">
-  <div class="detail_header" id="pc_exec/2">
-    <span class="signature"><strong>pc_exec(fun_list, kargs \\ [])</strong></span>
+  <div class="detail_header" id="exec/3">
+    <span class="signature"><strong>exec(fun_list, mode, task_options \\ [])</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
-      <a href="#pc_exec/2" class="detail_link" title="Link to this function">#</a>
+      <a href="#exec/3" class="detail_link" title="Link to this function">#</a>
       <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
     </div>
   </div>
   
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>exec(<a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a>, <a href="#t:mode/0">mode</a>, <a href="#t:task_options/0">task_options</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a></li>
+      
+    </ul>
+  
   <section class="docstring">
-    <p>Provides a handy function to do parallel processing of functions via chunks.
-It calls each fun in fun_list and returns the list of result. Keyword list is supported.
-Ordering of result is assured via sequential Task.await on collected Task pids.
-The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores.</p>
-<p>iex&gt; [fn -> 1 end, {:b, fn -> 2 end}, fn -> 3 end] |&gt; Paratize.pc_exec
-[1, {:b,2}, 3]</p>
+    <p>Parallel execution of the list of functions.
+Returns list of results in order.</p>
+<h3>Args</h3>
+<ul>
+<li>fun_list - list of functions to be executed
+</li>
+<li><code class="inline">mode</code>
+</li>
+<li><code class="inline">task_options</code>
+</li>
+</ul>
 
   </section>
   
-    <a href="https://github.com/seantanly/elixir-paratize/blob/v0.1.1/lib/paratize.ex#L50" class="view_source">Source</a>
+    <a href="https://github.com/seantanly/elixir-paratize/blob/master/lib/paratize.ex#L36" class="view_source">Source</a>
   
 </section>
 <section class="detail">
-  <div class="detail_header" id="pc_map/3">
-    <span class="signature"><strong>pc_map(arg_list, fun, kargs \\ [])</strong></span>
+  <div class="detail_header" id="map/4">
+    <span class="signature"><strong>map(args_list, fun, mode, task_options \\ [])</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
-      <a href="#pc_map/3" class="detail_link" title="Link to this function">#</a>
+      <a href="#map/4" class="detail_link" title="Link to this function">#</a>
       <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
     </div>
   </div>
   
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>map(<a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a>, Fun, <a href="#t:mode/0">mode</a>, <a href="#t:task_options/0">task_options</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a></li>
+      
+    </ul>
+  
   <section class="docstring">
-    <p>Provides a handy function to do parallel processing of map via chunks.
-It calls the fun with each argument and returns the list of result.
-Ordering of result is assured via sequential Task.await on collected Task pids.
-The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores.</p>
+    <p>Parallel processing of .map function via <code class="inline">exec/2</code>.
+Returns list of results in order with its arguments.</p>
+<h3>Args</h3>
+<ul>
+<li>args_list - list of arguments to be applied to fun
+</li>
+<li>fun - function taking in each argument
+</li>
+<li><code class="inline">mode</code>
+</li>
+<li><code class="inline">task_options</code>
+</li>
+</ul>
 
   </section>
   
-    <a href="https://github.com/seantanly/elixir-paratize/blob/v0.1.1/lib/paratize.ex#L29" class="view_source">Source</a>
+    <a href="https://github.com/seantanly/elixir-paratize/blob/master/lib/paratize.ex#L52" class="view_source">Source</a>
   
 </section>
 

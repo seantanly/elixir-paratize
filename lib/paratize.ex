@@ -1,65 +1,76 @@
 defmodule Paratize do
   @moduledoc """
   Provides a set of functions that does parallel processing on collection of data or functions.
+
+  Paratize.Pool contains the pool implementation of exec. (Default)
+
+  Paratize.Chunk contains the chunk implementation of exec.
   """
 
-  @doc """
-  Provides a handy function to do parallel processing of each via chunks.
-  It calls the fun with each argument.
-  The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores.
-  """
-  def pc_each(arg_list, fun, kargs \\ []) do
-    kargs = Keyword.merge([pool_size: Enum.count(arg_list), timeout: 5000], kargs)
-    if kargs[:pool_size] == :schedulers, do: kargs = kargs |> Keyword.put(:pool_size, :erlang.system_info(:schedulers))
 
-    arg_list |> Enum.chunk(kargs[:pool_size], kargs[:pool_size], []) |> Enum.each(fn(args) ->
-      Enum.map(args, fn(arg) -> Task.async(fn ->
-        fun.(arg)
-      end) end)
-      |> Enum.each(&Task.await(&1, kargs[:timeout]))
-    end)
+  @typedoc """
+  * size - number of workers, default: fun_list count. :schedulers will use the number of system cores.
+  * timeout - timeout in ms, integer, default: 5000, exit(:timeout,...) if no result is return by any of the workers within the period.
+  """
+  @type task_options :: [size: pos_integer, timeout: pos_integer]
+  @typedoc "Default :pool"
+  @type mode :: :chunk | :pool
+
+  defp get_module(mode) do
+    %{
+      chunk: Paratize.Chunk,
+      pool: Paratize.Pool,
+    } |> Dict.get(mode, Paratize.Pool)
   end
 
   @doc """
-  Provides a handy function to do parallel processing of map via chunks.
-  It calls the fun with each argument and returns the list of result.
-  Ordering of result is assured via sequential Task.await on collected Task pids.
-  The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores.
-  """
-  def pc_map(arg_list, fun, kargs \\ []) do
-    kargs = Keyword.merge([pool_size: Enum.count(arg_list), timeout: 5000], kargs)
-    if kargs[:pool_size] == :schedulers, do: kargs = kargs |> Keyword.put(:pool_size, :erlang.system_info(:schedulers))
+  Parallel execution of the list of functions.
+  Returns list of results in order.
 
-    arg_list |> Enum.chunk(kargs[:pool_size], kargs[:pool_size], []) |> Enum.map(fn(args) ->
-      Enum.map(args, fn(arg) -> Task.async(fn ->
-        fun.(arg)
-      end) end)
-      |> Enum.map(&Task.await(&1, kargs[:timeout]))
-    end) |> List.flatten
+  ### Args
+  * fun_list - list of functions to be executed
+  * `mode`
+  * `task_options`
+  """
+  @spec exec(List.t, mode, task_options) :: List.t
+  def exec(fun_list, mode, task_options \\ []) when is_atom(mode) do
+    module = get_module(mode)
+    fun_list |> module.exec(task_options)
   end
 
   @doc """
-  Provides a handy function to do parallel processing of functions via chunks.
-  It calls each fun in fun_list and returns the list of result. Keyword list is supported.
-  Ordering of result is assured via sequential Task.await on collected Task pids.
-  The pool_size default is size of arg_list. Setting pool_size to :schedulers will use the number of system cores.
+  Parallel processing of .map function via `exec/2`.
+  Returns list of results in order with its arguments.
 
-  iex> [fn -> 1 end, {:b, fn -> 2 end}, fn -> 3 end] |> Paratize.pc_exec
-  [1, {:b,2}, 3]
+  ### Args
+  * args_list - list of arguments to be applied to fun
+  * fun - function taking in each argument
+  * `mode`
+  * `task_options`
   """
-  def pc_exec(fun_list, kargs \\ []) when is_list(fun_list) do
-    kargs = Keyword.merge([pool_size: Enum.count(fun_list), timeout: 5000], kargs)
-    if kargs[:pool_size] == :schedulers, do: kargs = kargs |> Keyword.put(:pool_size, :erlang.system_info(:schedulers))
+  @spec map(List.t, Fun, mode, task_options) :: List.t
+  def map(args_list, fun, mode, task_options \\ []) when is_atom(mode) do
+    args_list |> Enum.map(fn(arg) ->
+      fn -> fun.(arg) end
+    end) |> exec(mode, task_options)
+  end
 
-    fun_list |> Enum.chunk(kargs[:pool_size], kargs[:pool_size], []) |> Enum.map(fn(funs) ->
-      Enum.map(funs, fn(fun) ->
-        case fun do
-          {key, func} when is_function(func) -> Task.async(fn -> {key, func.()} end)
-          _ -> Task.async(fun)
-        end
-      end)
-      |> Enum.map(&Task.await(&1, kargs[:timeout]))
-    end) |> List.flatten
+  @doc """
+  Parallel processing of .each function via `exec/2`.
+  Returns :ok
+
+  ### Args
+  * args_list - list of arguments to be applied to fun
+  * fun - function taking in each argument
+  * `mode`
+  * `task_options`
+  """
+  @spec each(List.t, Fun, mode, task_options) :: :ok
+  def each(args_list, fun, mode, task_options \\ []) when is_atom(mode) do
+    args_list |> Enum.map(fn(arg) ->
+      fn -> fun.(arg); nil end # fn to return nil to ensure return value can be deallocated.
+    end) |> exec(mode, task_options)
+    :ok
   end
 
 end

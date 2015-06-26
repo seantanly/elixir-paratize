@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Paratize.Pool</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Paratize v0.1.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Paratize.html">Paratize</a> &rarr; <a href="Paratize.Pool.html">Pool</a></div>
+      <h1>
+        Paratize.Pool
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Implementation of parallel exec via pool of spawned workers processes.</p>
+<p>True parallelism for the entire workload of functions, in which workers will fetch jobs from the fun_list until empty.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/seantanly/elixir-paratize/blob/master/lib/paratize/pool.ex#L1" class="view_source">Source</a>
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#exec/2">exec(fun_list, task_options \\ [])</a></td>
+  
+    <td class="summary_synopsis"><p>Does parallel processing of functions via pool of workers.
+Returns the list of result in order</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="exec/2">
+    <span class="signature"><strong>exec(fun_list, task_options \\ [])</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#exec/2" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>exec(<a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a>, <a href="Paratize.html#t:task_options/0">Paratize.task_options</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a></li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Does parallel processing of functions via pool of workers.
+Returns the list of result in order.</p>
+<h3>Args:</h3>
+<ul>
+<li>fun_list - list of functions to execute in parallel.
+</li>
+<li>task_options - Keyword of options.
+</li>
+</ul>
+<h4>task_options:</h4>
+<ul>
+<li>size - number of workers, default: fun_list count. :schedulers will use the number of system cores.
+</li>
+<li>timeout - timeout in ms, integer, default: 5000, exit(:timeout,…) if no result is return by any of the workers within the period.
+</li>
+</ul>
+<p>iex&gt; [fn -> 1 end, {:b, fn -> 2 end}, fn -> 3 end] |&gt; Paratize.Pool.exec
+[1, {:b,2}, 3]</p>
+
+  </section>
+  
+    <a href="https://github.com/seantanly/elixir-paratize/blob/master/lib/paratize/pool.ex#L24" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>
