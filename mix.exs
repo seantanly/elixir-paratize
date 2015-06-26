@@ -1,7 +1,7 @@
 defmodule Paratize.Mixfile do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
 
   def project do
     [
@@ -12,6 +12,7 @@ defmodule Paratize.Mixfile do
       start_permanent: Mix.env == :prod,
       deps: deps,
       package: package,
+      docs: [source_ref: "v#{@version}", main: "overview"],
       name: "Paratize",
       source_url: "https://github.com/seantanly/elixir-paratize",
       homepage_url: "https://github.com/seantanly/elixir-paratize",
