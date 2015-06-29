@@ -1,8 +1,8 @@
 defmodule Paratize.ChunkTest do
-  use ExUnit.Case
-  doctest Paratize.Chunk
+  use ExUnit.Case, async: true
+  use Paratize.BaseTest.Common, test_impl: Paratize.Chunk
 
-  test ".exec is able to execute functions in parallel and return their results in order" do
+  test "parallel_exec/2 is able to execute functions in parallel and return their results in order" do
     fun_list = [
       fn -> :timer.sleep(100); 1 end,
       {:b, fn -> :timer.sleep(100); 2 end},
@@ -12,7 +12,7 @@ defmodule Paratize.ChunkTest do
     ]
 
     {time, result} = :timer.tc fn ->
-      fun_list |> Paratize.Chunk.exec(%Paratize.TaskOptions{mode: :chunk, size: 3, timeout: 1000})
+      fun_list |> Paratize.Chunk.parallel_exec(%Paratize.TaskOptions{size: 3, timeout: 1000})
     end
 
     assert result == [1,{:b,2},3,{:d,4},5]
