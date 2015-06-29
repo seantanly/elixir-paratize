@@ -25,7 +25,7 @@
     </script>
 
     <section id="content">
-      <div class="breadcrumbs">Paratize v1.0.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Paratize.html">Paratize</a></div>
+      <div class="breadcrumbs">Paratize v2.0.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Paratize.html">Paratize</a></div>
       <h1>
         Paratize
         
@@ -33,11 +33,7 @@
 
       <ul class="summary_links">
         
-          <li><a href="#summary">Summary</a></li>
         
-        
-        
-          <li><a href="#functions_details">Functions</a></li>
         
         
         
@@ -53,150 +49,13 @@ Checkout <a href="Paratize.TaskOptions.html"><code class="inline">Paratize.TaskO
       
 
       
-        <a href="https://github.com/seantanly/elixir-paratize/blob/v1.0.0/lib/paratize.ex#L1" class="view_source">Source</a>
-      
-
-      
-        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
-        <table class="summary">
-          <tr>
-  <td class="summary_signature"><a href="#each/3">each(args_list, fun, taskoptions)</a></td>
-  
-    <td class="summary_synopsis"><p>Parallel processing of .each function via <a href="#exec/2"><code class="inline">exec/2</code></a>.
-Returns :ok</p>
-</td>
-  
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#exec/2">exec(fun_list, taskoptions)</a></td>
-  
-    <td class="summary_synopsis"><p>Parallel execution of the list of functions.
-Returns list of results in order</p>
-</td>
-  
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#map/3">map(args_list, fun, taskoptions)</a></td>
-  
-    <td class="summary_synopsis"><p>Parallel processing of .map function via <a href="#exec/2"><code class="inline">exec/2</code></a>.
-Returns list of results in order</p>
-</td>
-  
-</tr>
-
-        </table>
+        <a href="https://github.com/seantanly/elixir-paratize/blob/v2.0.0/lib/paratize.ex#L1" class="view_source">Source</a>
       
 
       
 
       
-        <section id="functions_details" class="details_list">
-          <h2>Functions</h2>
-          <section class="detail">
-  <div class="detail_header" id="each/3">
-    <span class="signature"><strong>each(args_list, fun, taskoptions)</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#each/3" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
-  </div>
-  
-    <p>Specs:</p>
-    <ul class="spec">
-      
-        <li>each(<a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a>, Fun, <a href="Paratize.TaskOptions.html#t:t/0">Paratize.TaskOptions.t</a>) :: :ok</li>
-      
-    </ul>
-  
-  <section class="docstring">
-    <p>Parallel processing of .each function via <a href="#exec/2"><code class="inline">exec/2</code></a>.
-Returns :ok</p>
-<h3>Args</h3>
-<ul>
-<li>args_list - list of arguments to be applied to fun
-</li>
-<li>fun - function taking in each argument
-</li>
-<li>task_options - <a href="Paratize.TaskOptions.html"><code class="inline">Paratize.TaskOptions</code></a>
-</li>
-</ul>
 
-  </section>
-  
-    <a href="https://github.com/seantanly/elixir-paratize/blob/v1.0.0/lib/paratize.ex#L48" class="view_source">Source</a>
-  
-</section>
-<section class="detail">
-  <div class="detail_header" id="exec/2">
-    <span class="signature"><strong>exec(fun_list, taskoptions)</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#exec/2" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
-  </div>
-  
-    <p>Specs:</p>
-    <ul class="spec">
-      
-        <li>exec(<a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a>, <a href="Paratize.TaskOptions.html#t:t/0">Paratize.TaskOptions.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a></li>
-      
-    </ul>
-  
-  <section class="docstring">
-    <p>Parallel execution of the list of functions.
-Returns list of results in order.</p>
-<h3>Args</h3>
-<ul>
-<li>fun_list - list of functions to be executed
-</li>
-<li>task_options - <a href="Paratize.TaskOptions.html"><code class="inline">Paratize.TaskOptions</code></a>
-</li>
-</ul>
-
-  </section>
-  
-    <a href="https://github.com/seantanly/elixir-paratize/blob/v1.0.0/lib/paratize.ex#L19" class="view_source">Source</a>
-  
-</section>
-<section class="detail">
-  <div class="detail_header" id="map/3">
-    <span class="signature"><strong>map(args_list, fun, taskoptions)</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#map/3" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
-  </div>
-  
-    <p>Specs:</p>
-    <ul class="spec">
-      
-        <li>map(<a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a>, Fun, <a href="Paratize.TaskOptions.html#t:t/0">Paratize.TaskOptions.t</a>) :: <a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a></li>
-      
-    </ul>
-  
-  <section class="docstring">
-    <p>Parallel processing of .map function via <a href="#exec/2"><code class="inline">exec/2</code></a>.
-Returns list of results in order.</p>
-<h3>Args</h3>
-<ul>
-<li>args_list - list of arguments to be applied to fun
-</li>
-<li>fun - function taking in each argument
-</li>
-<li>task_options - <a href="Paratize.TaskOptions.html"><code class="inline">Paratize.TaskOptions</code></a>
-</li>
-</ul>
-
-  </section>
-  
-    <a href="https://github.com/seantanly/elixir-paratize/blob/v1.0.0/lib/paratize.ex#L32" class="view_source">Source</a>
-  
-</section>
-
-        </section>
       
 
       

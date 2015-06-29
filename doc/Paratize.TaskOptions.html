@@ -25,7 +25,7 @@
     </script>
 
     <section id="content">
-      <div class="breadcrumbs">Paratize v1.0.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Paratize.html">Paratize</a> &rarr; <a href="Paratize.TaskOptions.html">TaskOptions</a></div>
+      <div class="breadcrumbs">Paratize v2.0.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Paratize.html">Paratize</a> &rarr; <a href="Paratize.TaskOptions.html">TaskOptions</a></div>
       <h1>
         Paratize.TaskOptions
         
@@ -51,7 +51,7 @@
       
 
       
-        <a href="https://github.com/seantanly/elixir-paratize/blob/v1.0.0/lib/paratize/task_options.ex#L1" class="view_source">Source</a>
+        <a href="https://github.com/seantanly/elixir-paratize/blob/v2.0.0/lib/paratize/task_options.ex#L1" class="view_source">Source</a>
       
 
       
@@ -61,9 +61,7 @@
   <td class="summary_signature"><a href="#__struct__/0">__struct__()</a></td>
   
     <td class="summary_synopsis"><ul>
-<li>mode - :chunk | :pool (default :pool).
-</li>
-<li>size - number of workers, default: the number of CPU cores.
+<li>size - number of workers, default: the number of CPU cores given by <code class="inline">:erlang.system_info(:schedulers)</code>.
 </li>
 <li>timeout - timeout in ms, integer, default: 5000, exit(:timeout,…) if no result is return by any of the workers within the period
 </li>
@@ -93,15 +91,13 @@
     <p>Specs:</p>
     <ul class="spec">
       
-        <li>__struct__ :: %Paratize.TaskOptions{mode: term, size: term, timeout: term}</li>
+        <li>__struct__ :: %Paratize.TaskOptions{size: term, timeout: term}</li>
       
     </ul>
   
   <section class="docstring">
     <ul>
-<li>mode - :chunk | :pool (default :pool).
-</li>
-<li>size - number of workers, default: the number of CPU cores.
+<li>size - number of workers, default: the number of CPU cores given by <code class="inline">:erlang.system_info(:schedulers)</code>.
 </li>
 <li>timeout - timeout in ms, integer, default: 5000, exit(:timeout,…) if no result is return by any of the workers within the period.
 </li>
@@ -109,7 +105,7 @@
 
   </section>
   
-    <a href="https://github.com/seantanly/elixir-paratize/blob/v1.0.0/lib/paratize/task_options.ex#L11" class="view_source">Source</a>
+    <a href="https://github.com/seantanly/elixir-paratize/blob/v2.0.0/lib/paratize/task_options.ex#L10" class="view_source">Source</a>
   
 </section>
 

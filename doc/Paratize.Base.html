@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Paratize.Base</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      hljs.initHighlightingOnLoad();
+      hljs.configure({languages: []}); //disable autodetect
+    </script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">Paratize v2.0.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Paratize.html">Paratize</a> &rarr; <a href="Paratize.Base.html">Base</a></div>
+      <h1>
+        Paratize.Base
+        
+          <small>behaviour</small>
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+        
+        
+        
+        
+          <li><a href="#callbacks_details">Callbacks</a></li>
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Provides the base implementation for <code class="inline">parallel_each/3</code> and <code class="inline">parallel_map/3</code>.</p>
+<p>To create an implementation, do <code class="inline">use Paratize.Base</code> and provide the implementation of <code class="inline">parallel_exec/2</code>.</p>
+
+        </section>
+      
+
+      
+        <a href="https://github.com/seantanly/elixir-paratize/blob/v2.0.0/lib/paratize/base.ex#L1" class="view_source">Source</a>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <section id="callbacks_details" class="details_list">
+          <h2>Callbacks</h2>
+          <section class="detail">
+  <div class="detail_header" id="c:parallel_exec/2">
+    <span class="signature"><strong>parallel_exec/2</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(callback)</span>
+      <a href="#c:parallel_exec/2" class="detail_link" title="Link to this callback">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>parallel_exec(<a href="http://elixir-lang.org/docs/stable/elixir/List.html#t:t/0">List.t</a>, TaskOptions.t) :: term</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Parallel processing of functions.
+Returns the list of result in order.</p>
+<h3>Args:</h3>
+<ul>
+<li>fun_list - list of functions to execute in parallel.
+</li>
+<li>task_options - <a href="Paratize.TaskOptions.html"><code class="inline">Paratize.TaskOptions</code></a>
+</li>
+</ul>
+
+  </section>
+  
+    <a href="https://github.com/seantanly/elixir-paratize/blob/v2.0.0/lib/paratize/base.ex#L18" class="view_source">Source</a>
+  
+</section>
+
+        </section>
+      
+    </section>
+  </body>
+</html>
