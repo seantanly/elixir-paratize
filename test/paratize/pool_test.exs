@@ -1,6 +1,6 @@
 defmodule Paratize.PoolTest do
   use ExUnit.Case, async: true
-  use Paratize.BaseTest.Common, test_impl: Paratize.Chunk
+  use Paratize.BaseTest.Common, test_impl: Paratize.Pool
 
   test "parallel_exec/2 is able to execute functions in parallel and return their results in order" do
     fun_list = [
