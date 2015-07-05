@@ -51,7 +51,7 @@ defmodule Paratize.Mixfile do
       licenses: ["MIT"],
       links: %{github: "https://github.com/seantanly/elixir-paratize"},
       files: ~w(lib test) ++
-             ~w(LICENSE mix.exs README.md),
+             ~w(CHANGELOG.md LICENSE mix.exs README.md),
     ]
   end
 end
