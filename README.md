@@ -6,6 +6,18 @@ Elixir library providing some handy parallel processing facilities that supports
 
 This library is inspired by [Parex](https://github.com/StevenJL/parex).
 
+## Adding Paratize To Your Project
+
+To use Paratize with your projects, edit your `mix.exs` file and add it as a dependency:
+
+```
+defp deps do
+  [
+    {:paratize, "~> 2.0.0"},
+  ]
+end
+```
+
 ## Examples
 
 Paratize is designed to run slow tasks in parallel. There are two processor implementatons, first the chunk based implementation `Paratize.Chunk` and the second the pool worker based implementation `Paratize.Pool`. Both modules have the same API.
