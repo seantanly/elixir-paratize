@@ -2,6 +2,8 @@ defmodule Paratize.Chunk do
   @moduledoc """
   Implementation of parallel exec via chunks and Task.async / Task.await.
 
+  `Paratize.Chunk` implements the `Paratize.Base` behaviour and inherits the implementation for `parallel_each/3` and `parallel_map/3`.
+
   Parallelism is achieved within each chunk of functions. Processing on the next chunk starts only after the current chunk is completed.
   """
 

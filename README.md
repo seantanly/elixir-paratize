@@ -79,7 +79,7 @@ end)
 Each function accepts task options to customize the parallel processing.
 
 * size - the number of parallel workers, defaults to the number of system cores given by `:erlang.system_info(:schedulers)`
-* timeout - in milliseconds, the minimum time given for a function to complete. If the function is timeout, the entire parallel processing crashes with `exit(:timeout,...)`.
+* timeout - in milliseconds, the minimum time given for a function to complete, defaults to `5000`. If timeout happens, the entire parallel processing crashes with `exit(:timeout,...)`. To disable timeout, use `:infinity`.
 
 ## Considerations
 
