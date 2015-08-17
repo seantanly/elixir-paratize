@@ -81,19 +81,19 @@ Each function accepts task options to customize the parallel processing.
 * size - the number of parallel workers, defaults to the number of system cores given by `:erlang.system_info(:schedulers)`
 * timeout - in milliseconds, the minimum time given for a function to complete, defaults to `5000`. If timeout happens, the entire parallel processing crashes with `exit(:timeout,...)`. To disable timeout, use `:infinity`.
 
+
 ## Considerations
 
 To achieve maximum parallelism, `%Paratize.TaskOptions{}` size should be set to size of your workload,
 
 ```
 alias Paratize.Pool
-alias Paratize.TaskOptions
 
 slow_func = fn(arg) -> :timer.sleep(1000); arg + 1 end
 workload = 1..100
 
 {time, result} = :timer.tc fn -> 
-    workload |> Pool.parallel_map(slow_func, %TaskOptions{size: Enum.count(workload)}) |> Enum.join(", ") 
+    workload |> Pool.parallel_map(slow_func, size: Enum.count(workload)) |> Enum.join(", ") 
 end
 time # => 1004370 (Running 100 workers)
 

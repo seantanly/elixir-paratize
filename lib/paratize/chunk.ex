@@ -21,8 +21,8 @@ defmodule Paratize.Chunk do
   [1, {:b,2}, 3]
 
   """
-  @spec parallel_exec(List.t, Paratize.TaskOptions.t) :: List.t
-  def parallel_exec(fun_list, task_options \\ %Paratize.TaskOptions{}) when is_list(fun_list) do
+  @spec parallel_exec(List.t, Paratize.TaskOptions.t | Keyword.t) :: List.t
+  def parallel_exec(fun_list, task_options=%Paratize.TaskOptions{}) when is_list(fun_list) do
     worker_count = [Enum.count(fun_list), task_options.size] |> Enum.min
 
     fun_list |> Enum.chunk(worker_count, worker_count, []) |> Enum.map(fn(funs) ->
