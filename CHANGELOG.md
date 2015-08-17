@@ -1,6 +1,11 @@
 Changelog
 ====
 
+## Version 2.1.0 (2015-08-17)
+
+Added support for using the convenient Keyword arguments to define `%Paratize.TaskOptions`.
+
+
 ## Version 2.0.1 (2015-08-13)
 
 Bugfix for tests. Improved documentation.

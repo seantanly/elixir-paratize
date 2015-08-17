@@ -13,7 +13,7 @@ To use Paratize with your projects, edit your `mix.exs` file and add it as a dep
 ```
 defp deps do
   [
-    {:paratize, "~> 2.0.1"},
+    {:paratize, "~> 2.1.0"},
   ]
 end
 ```
