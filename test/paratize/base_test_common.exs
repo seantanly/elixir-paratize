@@ -23,7 +23,7 @@ defmodule Paratize.BaseTest.Common do
           Agent.get(store_pid, &(&1)) |> Enum.into(HashSet.new),
           [5,4,3,2,1] |> Enum.into(HashSet.new))
         assert result == :ok
-        assert time/1000 in 300..500
+        assert div(time, 1000) in 300..500
       end
 
       test "parallel_map/3 is able to execute the task in parallel and return the list of results" do
@@ -43,7 +43,7 @@ defmodule Paratize.BaseTest.Common do
           Agent.get(store_pid, &(&1)) |> Enum.into(HashSet.new),
           [5,4,3,2,1] |> Enum.into(HashSet.new))
         assert result == [2,4,6,8,10]
-        assert time/1000 in 300..500
+        assert div(time, 1000) in 300..500
       end
     end
   end

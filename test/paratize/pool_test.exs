@@ -16,7 +16,7 @@ defmodule Paratize.PoolTest do
     end
 
     assert result == [1,{:b,2},3,{:d,4},5]
-    assert time/1000 in 200..300
+    assert div(time, 1000) in 200..300
   end
 
 end
