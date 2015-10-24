@@ -7,6 +7,10 @@ Elixir library providing some handy parallel processing facilities that supports
 
 This library is inspired by [Parex](https://github.com/StevenJL/parex).
 
+## Documentation
+
+API documentation is available at [http://hexdocs.pm/paratize](http://hexdocs.pm/paratize)
+
 ## Adding Paratize To Your Project
 
 To use Paratize with your projects, edit your `mix.exs` file and add it as a dependency:
