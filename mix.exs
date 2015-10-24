@@ -7,7 +7,7 @@ defmodule Paratize.Mixfile do
     [
       app: :paratize,
       version: @version,
-      elixir: "~> 1.0",
+      elixir: "~> 1.1",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps: deps,

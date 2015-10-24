@@ -9,13 +9,13 @@ defmodule Paratize.Base do
 
   @doc """
   Parallel processing of functions.
-  Returns the list of result in order.
+  Returns the list of results in order.
 
   ### Args:
     * fun_list - list of functions to execute in parallel.
     * task_options - `Paratize.TaskOptions`
   """
-  defcallback parallel_exec(List.t, TaskOptions.t)
+  @callback parallel_exec(List.t, TaskOptions.t) :: List.t
 
   defmacro __using__(_) do
     quote location: :keep do
