@@ -12,13 +12,17 @@ defmodule Paratize.Mixfile do
       start_permanent: Mix.env == :prod,
       deps: deps,
       package: package,
-      docs: [source_ref: "v#{@version}", main: "overview"],
       name: "Paratize",
       source_url: "https://github.com/seantanly/elixir-paratize",
       homepage_url: "https://github.com/seantanly/elixir-paratize",
       description: """
       Elixir library providing some handy parallel processing facilities.
       """,
+      docs: [
+        source_ref: "v#{@version}", main: "Paratize",
+        # logo: "path/to/logo.png",
+        extras: ~w(CHANGELOG.md README.md LICENSE.md)
+      ],
     ]
   end
 
@@ -41,7 +45,7 @@ defmodule Paratize.Mixfile do
   defp deps do
     [
       {:earmark, "~> 0.1", only: :docs},
-      {:ex_doc, "~> 0.6", only: :docs},
+      {:ex_doc, "~> 0.10", only: :docs},
     ]
   end
 
