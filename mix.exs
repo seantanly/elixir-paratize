@@ -51,7 +51,7 @@ defmodule Paratize.Mixfile do
 
   defp package do
     [
-      contributors: ["Sean Tan Li Yang"],
+      maintainers: ["Sean Tan Li Yang"],
       licenses: ["MIT"],
       links: %{github: "https://github.com/seantanly/elixir-paratize"},
       files: ~w(lib test) ++
