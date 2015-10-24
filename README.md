@@ -1,6 +1,6 @@
 Paratize
 ========
-[![Build Status](https://semaphoreci.com/api/v1/projects/440099da-1586-4a89-85e9-9603659b2c80/463862/shields_badge.svg)](https://semaphoreci.com/seantanly/elixir-paratize)
+[![Build Status](https://travis-ci.org/seantanly/elixir-paratize.svg?branch=master)](https://travis-ci.org/seantanly/elixir-paratize)
 [![Hex.pm Version](http://img.shields.io/hexpm/v/paratize.svg?style=flat)](https://hex.pm/packages/paratize)
 
 Elixir library providing some handy parallel processing facilities that supports configuring number of workers and timeout.
