@@ -1,6 +1,12 @@
 Changelog
 ====
 
+## Version 2.1.1 (2015-10-25)
+
+* Upgrade to Elixir v1.1 as minimum supported version.
+* Update docs generated from ex_doc v0.10.
+* Documentation updated with CHANGELOG, README and LICENSE included.
+
 ## Version 2.1.0 (2015-08-17)
 
 Added support for using the convenient Keyword arguments to define `%Paratize.TaskOptions`.

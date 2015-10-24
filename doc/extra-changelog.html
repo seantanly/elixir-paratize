@@ -1,18 +1,18 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Paratize – Paratize v2.1.1</title>
+    <title>CHANGELOG – Paratize v2.1.1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.10.0">
     <link rel="stylesheet" href="dist/app.css" />
     <script src="dist/sidebar_items.js"></script>
   </head>
-  <body data-type="modules">
+  <body data-type="extras">
 
-    <div class="main">
+<div class="main">
 <button class="sidebar-toggle">
   <i class="icon-menu"></i>
 </button>
@@ -59,35 +59,35 @@
   <div id="content" class="content-inner">
 
 
-      <h1>
-        Paratize
-        
-        
-          <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.1/lib/paratize.ex#L1" title="View Source" class="view-source" rel="help">
-            <i class="icon-code"></i>
-          </a>
-        
-      </h1>
+<h1>Changelog</h1>
+<h2 id="Version-2-1-1-2015-10-25-"> Version 2.1.1 (2015-10-25)</h2><ul>
+<li>Upgrade to Elixir v1.1 as minimum supported version.
+</li>
+<li>Update docs generated from ex_doc v0.10.
+</li>
+<li>Documentation updated with CHANGELOG, README and LICENSE included.
+</li>
+</ul>
+<h2 id="Version-2-1-0-2015-08-17-"> Version 2.1.0 (2015-08-17)</h2><p>Added support for using the convenient Keyword arguments to define <code class="inline">%Paratize.TaskOptions</code>.</p>
+<h2 id="Version-2-0-1-2015-08-13-"> Version 2.0.1 (2015-08-13)</h2><p>Bugfix for tests. Improved documentation.</p>
+<h2 id="Version-2-0-0-2015-06-29-"> Version 2.0.0 (2015-06-29)</h2><p>Refactored the API again!</p>
+<ul>
+<li>Paratize.* functions are moved to their respective module.
+</li>
+<li>exec/2 are renamed to parallel_exec/2 for Paratize.Pool and Paratize.Chunk.
+</li>
+</ul>
+<p>Common API for both <a href="Paratize.Chunk.html"><code class="inline">Paratize.Chunk</code></a> and <a href="Paratize.Pool.html"><code class="inline">Paratize.Pool</code></a> processors. </p>
+<ul>
+<li><code class="inline">parallel_exec(fun_list, task_options)</code>
+</li>
+<li><code class="inline">parallel_map(arg_list, fun, task_options)</code>
+</li>
+<li><code class="inline">parallel_each(arg_list, fun, task_options)</code>
+</li>
+</ul>
 
-      
-        <section id="moduledoc" class="docstring">
-          <p>Provides a set of functions that does parallel processing on collection of data or functions.</p>
-<p>There are two implementation strategies, <a href="Paratize.Chunk.html"><code class="inline">Paratize.Chunk</code></a> and <a href="Paratize.Pool.html"><code class="inline">Paratize.Pool</code></a>.
-Checkout <a href="Paratize.TaskOptions.html"><code class="inline">Paratize.TaskOptions</code></a> for what are the configurations available.</p>
-
-        </section>
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-        <footer class="footer">
+    <footer class="footer">
       <p>
         <span class="line">
           Built using

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>README – Paratize v2.1.1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.10.0">
+    <link rel="stylesheet" href="dist/app.css" />
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="extras">
+
+<div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+  <button class="sidebar-toggle">
+    <i class="icon-menu"></i>
+  </button>
+
+  
+  <a href="Paratize.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Paratize
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v2.1.1
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div id="content" class="content-inner">
+
+
+<h1>Paratize</h1>
+<p><a href="https://travis-ci.org/seantanly/elixir-paratize"><img src="https://travis-ci.org/seantanly/elixir-paratize.svg?branch=master" alt="Build Status"/></a>
+<a href="https://hex.pm/packages/paratize"><img src="http://img.shields.io/hexpm/v/paratize.svg?style=flat" alt="Hex.pm Version"/></a></p>
+<p>Elixir library providing some handy parallel processing facilities that supports configuring number of workers and timeout.</p>
+<p>This library is inspired by <a href="https://github.com/StevenJL/parex">Parex</a>.</p>
+<h2 id="Adding-Paratize-To-Your-Project"> Adding Paratize To Your Project</h2><p>To use Paratize with your projects, edit your <code class="inline">mix.exs</code> file and add it as a dependency:</p>
+<pre><code class="elixir">defp deps do
+  [
+    {:paratize, &quot;~&gt; x.x.x&quot;},
+  ]
+end</code></pre>
+<h2 id="Examples"> Examples</h2><p>Paratize is designed to run slow tasks in parallel. There are two processor implementatons, first the chunk based implementation <a href="Paratize.Chunk.html"><code class="inline">Paratize.Chunk</code></a> and the second the pool worker based implementation <a href="Paratize.Pool.html"><code class="inline">Paratize.Pool</code></a>. Both modules have the same API.</p>
+<ul>
+<li><code class="inline">parallel_exec(fun_list, task_options)</code>
+</li>
+<li><code class="inline">parallel_map(arg_list, fun, task_options)</code>
+</li>
+<li><code class="inline">parallel_each(arg_list, fun, task_options)</code>
+</li>
+</ul>
+<p>To execute a list of functions in parallel,</p>
+<pre><code class="elixir">import Paratize.Pool
+
+function_list = [
+  fn() -&gt; Math.fib(40) end,
+  fn() -&gt; :timer.sleep(5000) end,
+  fn() -&gt; HTTPotion.get(&quot;http://wwww.reddit.com&quot;) end
+]
+
+parallel_exec(function_list) # =&gt; [102334155, :ok, %HTTPotion.Response{body...}]
+
+function_keyword_list = [
+  fib: fn() -&gt; Math.fib(40) end,
+  hang: fn() -&gt; :timer.sleep(5000) end,
+  web_request: fn() -&gt; HTTPotion.get(&quot;http://wwww.reddit.com&quot;) end
+]
+
+parallel_exec(function_keyword_list) # =&gt; [fib: 102334155, hang: :ok, web_request: %HTTPotion.Response{body...}]</code></pre>
+<p>To execute a map in parallel,  
+(useful when results are needed for further processing)</p>
+<pre><code class="elixir">import Paratize.Pool
+
+slow_func = fn(arg) -&gt; :timer.sleep(1000); arg + 1 end
+workload = 1..100
+
+{time, result} = :timer.tc fn -&gt; workload |&gt; parallel_map(slow_func) |&gt; Enum.join(&quot;, &quot;) end
+time # =&gt; 13034452 (8 CPU cores system, running 8 workers)</code></pre>
+<p>To execute a each in parallel,  
+(useful when resultset is large, and can be processed individually to prevent memory hog)</p>
+<pre><code class="elixir">import Paratize.Pool
+
+lots_of_urls |&gt; parallel_each(fn(url) -&gt; 
+  HTTPotion.get(url) |&gt; parse_page |&gt; save_meta_data
+end)</code></pre>
+<h2 id="Task-Options"> Task Options</h2><p>Each function accepts task options to customize the parallel processing.</p>
+<ul>
+<li>size - the number of parallel workers, defaults to the number of system cores given by <code class="inline">:erlang.system_info(:schedulers)</code>
+</li>
+<li>timeout - in milliseconds, the minimum time given for a function to complete, defaults to <code class="inline">5000</code>. If timeout happens, the entire parallel processing crashes with <code class="inline">exit(:timeout,...)</code>. To disable timeout, use <code class="inline">:infinity</code>.
+</li>
+</ul>
+<h2 id="Considerations"> Considerations</h2><p>To achieve maximum parallelism, <code class="inline">%Paratize.TaskOptions{}</code> size should be set to size of your workload,</p>
+<pre><code class="elixir">alias Paratize.Pool
+
+slow_func = fn(arg) -&gt; :timer.sleep(1000); arg + 1 end
+workload = 1..100
+
+{time, result} = :timer.tc fn -&gt; 
+    workload |&gt; Pool.parallel_map(slow_func, size: Enum.count(workload)) |&gt; Enum.join(&quot;, &quot;) 
+end
+time # =&gt; 1004370 (Running 100 workers)</code></pre>
+<p>The <code class="inline">%Paratize.TaskOptions{}</code> timeout should not be relied upon for precise timing out of each workload, because it is not strictly enforced. It is an implementation detail that <em>reasonably</em> crashes the processor if no further work is completed after the timeout period has lapsed. </p>
+
+    <footer class="footer">
+      <p>
+        <span class="line">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.10.0),
+        </span>
+        <span class="line">
+          designed by
+          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+      </p>
+    </footer>
+  </div>
+</section>
+</div>
+    <script src="dist/app.js"></script>
+  </body>
+</html>
+

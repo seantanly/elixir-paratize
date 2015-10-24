@@ -1,18 +1,18 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Paratize – Paratize v2.1.1</title>
+    <title>API Reference – Paratize v2.1.1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.10.0">
     <link rel="stylesheet" href="dist/app.css" />
     <script src="dist/sidebar_items.js"></script>
   </head>
-  <body data-type="modules">
+  <body data-type="extras">
 
-    <div class="main">
+<div class="main">
 <button class="sidebar-toggle">
   <i class="icon-menu"></i>
 </button>
@@ -58,36 +58,64 @@
 <section class="content">
   <div id="content" class="content-inner">
 
+  <h1>API Reference</h1>
 
-      <h1>
-        Paratize
-        
-        
-          <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.1/lib/paratize.ex#L1" title="View Source" class="view-source" rel="help">
-            <i class="icon-code"></i>
-          </a>
-        
-      </h1>
+  <ul class="summary-links">
+    
+      <li><a href="#modules">Modules</a></li>
+    
+    
+    
+  </ul>
 
-      
-        <section id="moduledoc" class="docstring">
-          <p>Provides a set of functions that does parallel processing on collection of data or functions.</p>
-<p>There are two implementation strategies, <a href="Paratize.Chunk.html"><code class="inline">Paratize.Chunk</code></a> and <a href="Paratize.Pool.html"><code class="inline">Paratize.Pool</code></a>.
-Checkout <a href="Paratize.TaskOptions.html"><code class="inline">Paratize.TaskOptions</code></a> for what are the configurations available.</p>
+  
+    <section id="modules" class="details-list">
+      <h1 class="section-heading">Modules</h1>
+      <div class="summary">
+        <div class="summary-row">
+  <div class="summary-signature"><a href="Paratize.html">Paratize</a></div>
+  
+    <div class="summary-synopsis"><p>Provides a set of functions that does parallel processing on collection of data or functions</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Paratize.Base.html">Paratize.Base</a></div>
+  
+    <div class="summary-synopsis"><p>Provides the base implementation for <code class="inline">parallel_each/3</code> and <code class="inline">parallel_map/3</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Paratize.Chunk.html">Paratize.Chunk</a></div>
+  
+    <div class="summary-synopsis"><p>Implementation of parallel exec via chunks and Task.async / Task.await</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Paratize.Pool.html">Paratize.Pool</a></div>
+  
+    <div class="summary-synopsis"><p>Implementation of parallel exec via pool of spawned workers processes</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature"><a href="Paratize.TaskOptions.html">Paratize.TaskOptions</a></div>
+  
+    <div class="summary-synopsis"><p>Struct holding the configurations for executing the workload in parallel</p>
+</div>
+  
+</div>
 
-        </section>
-      
+      </div>
+    </section>
+  
 
-      
+  
 
-      
-
-      
-
-      
-
-      
-        <footer class="footer">
+  
+    <footer class="footer">
       <p>
         <span class="line">
           Built using
