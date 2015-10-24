@@ -40,8 +40,8 @@ defmodule Paratize.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.6", only: :dev},
+      {:earmark, "~> 0.1", only: :docs},
+      {:ex_doc, "~> 0.6", only: :docs},
     ]
   end
 
