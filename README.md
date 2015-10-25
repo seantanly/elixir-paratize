@@ -15,7 +15,7 @@ API documentation is available at [http://hexdocs.pm/paratize](http://hexdocs.pm
 
 To use Paratize with your projects, edit your `mix.exs` file and add it as a dependency:
 
-```
+```elixir
 defp deps do
   [
     {:paratize, "~> x.x.x"},
@@ -33,7 +33,7 @@ Paratize is designed to run slow tasks in parallel. There are two processor impl
 
 To execute a list of functions in parallel,
 
-```
+```elixir
 import Paratize.Pool
 
 function_list = [
@@ -57,7 +57,7 @@ parallel_exec(function_keyword_list) # => [fib: 102334155, hang: :ok, web_reques
 To execute a map in parallel,  
 (useful when results are needed for further processing)
 
-```
+```elixir
 import Paratize.Pool
 
 slow_func = fn(arg) -> :timer.sleep(1000); arg + 1 end
@@ -70,7 +70,7 @@ time # => 13034452 (8 CPU cores system, running 8 workers)
 To execute a each in parallel,  
 (useful when resultset is large, and can be processed individually to prevent memory hog)
 
-```
+```elixir
 import Paratize.Pool
 
 lots_of_urls |> parallel_each(fn(url) -> 
@@ -91,7 +91,7 @@ Each function accepts task options to customize the parallel processing.
 
 To achieve maximum parallelism, `%Paratize.TaskOptions{}` size should be set to size of your workload,
 
-```
+```elixir
 alias Paratize.Pool
 
 slow_func = fn(arg) -> :timer.sleep(1000); arg + 1 end
