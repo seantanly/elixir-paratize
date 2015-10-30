@@ -1,6 +1,4 @@
 defmodule Paratize.Base do
-  use Behaviour
-
   @moduledoc """
   Provides the base implementation for `parallel_each/3` and `parallel_map/3`.
 
