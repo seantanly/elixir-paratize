@@ -18,34 +18,19 @@ defmodule Paratize.Mixfile do
       description: """
       Elixir library providing some handy parallel processing facilities.
       """,
-      docs: [
-        source_ref: "v#{@version}", main: "Paratize",
-        # logo: "path/to/logo.png",
-        extras: ~w(CHANGELOG.md README.md LICENSE.md)
-      ],
+      docs: docs,
     ]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type `mix help compile.app` for more information
   def application do
     [applications: [:logger]]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:mydep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
-  #
-  # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:earmark, "~> 0.1", only: :docs},
-      {:ex_doc, "~> 0.10", only: :docs},
+      {:credo, ">= 0.0.0", only: [:dev, :test]},
+      {:earmark, ">= 0.2.1", only: :docs},
+      {:ex_doc, ">= 0.11.4", only: :docs},
     ]
   end
 
@@ -56,6 +41,15 @@ defmodule Paratize.Mixfile do
       links: %{github: "https://github.com/seantanly/elixir-paratize"},
       files: ~w(lib test) ++
              ~w(CHANGELOG.md LICENSE mix.exs README.md),
+    ]
+  end
+
+  defp docs do
+    [
+      source_ref: "v#{@version}",
+      main: "Paratize",
+      # logo: "path/to/logo.png",
+      extras: ~w(CHANGELOG.md README.md LICENSE.md)
     ]
   end
 end
