@@ -10,15 +10,3 @@ defmodule Paratize.TaskOptions do
   defstruct size: :erlang.system_info(:schedulers), timeout: 5000
 
 end
-
-defimpl Collectable, for: Paratize.TaskOptions do
-
-  def into(original) do
-    {original, fn
-        acc, {:cont, {k, v}} -> Map.update!(acc, k, fn(_old_v) -> v end)
-        acc, :done -> acc
-        _, :halt -> :ok
-    end}
-  end
-
-end
