@@ -23,7 +23,7 @@ defmodule Paratize.Pool do
   """
   @spec parallel_exec(List.t, Paratize.TaskOptions.t | Keyword.t) :: List.t
   def parallel_exec(fun_list, task_options=%Paratize.TaskOptions{}) when is_list(fun_list) do
-    worker_count = [Enum.count(fun_list), task_options.size] |> Enum.min
+    worker_count = [Enum.count(fun_list), Paratize.TaskOptions.worker_count(task_options)] |> Enum.min
 
     worker_pids = 1..worker_count |> Enum.map(fn(_) ->
       spawn_link(__MODULE__, :worker_func, [self])
