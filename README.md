@@ -105,3 +105,8 @@ time # => 1004370 (Running 100 workers)
 ```
 
 The `%Paratize.TaskOptions{}` timeout should not be relied upon for precise timing out of each workload, because it is not strictly enforced. It is an implementation detail that *reasonably* crashes the processor if no further work is completed after the timeout period has lapsed. 
+
+
+## LICENSE
+
+This software is licensed under [MIT LICENSE](LICENSE.md).

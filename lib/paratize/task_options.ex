@@ -9,7 +9,7 @@ defmodule Paratize.TaskOptions do
   """
   defstruct size: :schedulers, timeout: 5000
 
-  def worker_count(task_options=%__MODULE__{}) do
+  def worker_count(%__MODULE__{} = task_options) do
     case task_options.size do
       :schedulers -> :erlang.system_info(:schedulers)
       :infinity -> :infinity

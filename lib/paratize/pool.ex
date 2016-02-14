@@ -21,23 +21,23 @@ defmodule Paratize.Pool do
   [1, {:b,2}, 3]
 
   """
-  @spec parallel_exec(List.t, Paratize.TaskOptions.t | Keyword.t) :: List.t
-  def parallel_exec(fun_list, task_options=%Paratize.TaskOptions{}) when is_list(fun_list) do
-    worker_count = [Enum.count(fun_list), Paratize.TaskOptions.worker_count(task_options)] |> Enum.min
+  def parallel_exec(fun_list, %TaskOptions{} = task_options) do
+    worker_count = [Enum.count(fun_list), TaskOptions.worker_count(task_options)] |> Enum.min
 
-    worker_pids = 1..worker_count |> Enum.map(fn(_) ->
-      spawn_link(__MODULE__, :worker_func, [self])
-    end)
-    ifun_list = fun_list |> Enum.with_index |> Enum.map(fn {fun, index} -> {index, fun} end)
-    acc = []
+    worker_pids = for _ <- 1..worker_count, do: spawn_link(__MODULE__, :worker_func, [self])
 
-    do_exec(worker_pids, ifun_list, acc, task_options)
+    ifun_list =
+      fun_list
+      |> Enum.with_index
+      |> Enum.map(fn {fun, index} -> {index, fun} end)
+
+    do_exec(worker_pids, ifun_list, [], task_options)
   end
 
-  defp do_exec(_worker_pids=[], _ifun_list, acc, _task_options) do
-    acc
-      |> Enum.sort(fn({index1, _result1}, {index2, _result2}) -> index1 < index2 end )
-      |> Enum.map(fn {_index, result} -> result end)
+  defp do_exec([] = _worker_pids, _ifun_list, acc, _task_options) do
+    acc # [{index, result}]
+    |> Enum.sort_by(&elem(&1, 0))
+    |> Enum.map(&elem(&1, 1))
   end
   defp do_exec(worker_pids, ifun_list, acc, task_options) do
     receive do

@@ -37,7 +37,7 @@ defmodule Paratize.Base do
       * task_options - `Paratize.TaskOptions`
       """
       @spec parallel_map(List.t, Fun, TaskOptions.t | Keyword.t) :: List.t
-      def parallel_map(args_list, fun, task_options=%TaskOptions{}) do
+      def parallel_map(args_list, fun, %TaskOptions{} = task_options) do
         args_list |> Enum.map(fn(arg) ->
           fn -> fun.(arg) end
         end) |> parallel_exec(task_options)
@@ -60,7 +60,7 @@ defmodule Paratize.Base do
       * task_options - `Paratize.TaskOptions`
       """
       @spec parallel_each(List.t, Fun, TaskOptions.t | Keyword.t) :: :ok
-      def parallel_each(args_list, fun, task_options=%TaskOptions{}) do
+      def parallel_each(args_list, fun, %TaskOptions{} = task_options) do
         args_list |> Enum.map(fn(arg) ->
           fn -> fun.(arg); :ok end # fn to return :ok to allow return value be garbage collected.
         end) |> parallel_exec(task_options)
@@ -70,6 +70,7 @@ defmodule Paratize.Base do
       @doc """
       `parallel_exec/3` with default task_options.
       """
+      @spec parallel_exec(List.t, TaskOptions.t | Keyword.t) :: List.t
       def parallel_exec(fun_list, task_options \\ %TaskOptions{})
       def parallel_exec(fun_list, task_options) when is_list(task_options) do
         parallel_exec(fun_list, struct(TaskOptions, task_options))
