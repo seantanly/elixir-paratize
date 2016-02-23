@@ -1,6 +1,11 @@
 Changelog
 ====
 
+## Version 2.1.3 (2016-02-23)
+
+* Updated typespecs support for Dialyzer
+
+
 ## Version 2.1.2 (2016-02-14)
 
 Bugfix & refactoring.
@@ -35,7 +40,7 @@ Refactored the API again!
 * Paratize.* functions are moved to their respective module.
 * exec/2 are renamed to parallel_exec/2 for Paratize.Pool and Paratize.Chunk.
 
-Common API for both `Paratize.Chunk` and `Paratize.Pool` processors. 
+Common API for both `Paratize.Chunk` and `Paratize.Pool` processors.
 
 * `parallel_exec(fun_list, task_options)`
 * `parallel_map(arg_list, fun, task_options)`
