@@ -13,12 +13,15 @@ defmodule Paratize.Base do
     * fun_list - list of functions to execute in parallel.
     * task_options - `Paratize.TaskOptions`
   """
-  @callback parallel_exec(List.t, TaskOptions.t) :: List.t
+  @callback parallel_exec([(() -> res)], Paratize.TaskOptions.t) :: [res] when res: var
 
   defmacro __using__(_) do
     quote location: :keep do
       @behaviour unquote(__MODULE__)
       alias Paratize.TaskOptions
+
+      @type arg :: any
+      @type res :: any
 
       @doc """
       `parallel_map/3` with default task_options.
@@ -36,7 +39,7 @@ defmodule Paratize.Base do
       * fun - function taking in each argument
       * task_options - `Paratize.TaskOptions`
       """
-      @spec parallel_map(List.t, Fun, TaskOptions.t | Keyword.t) :: List.t
+      @spec parallel_map([arg], (arg -> res), TaskOptions.t | Keyword.t) :: [res]
       def parallel_map(args_list, fun, %TaskOptions{} = task_options) do
         args_list |> Enum.map(fn(arg) ->
           fn -> fun.(arg) end
@@ -59,9 +62,9 @@ defmodule Paratize.Base do
       * fun - function taking in each argument
       * task_options - `Paratize.TaskOptions`
       """
-      @spec parallel_each(List.t, Fun, TaskOptions.t | Keyword.t) :: :ok
+      @spec parallel_each([arg], (arg -> res), TaskOptions.t | Keyword.t) :: :ok
       def parallel_each(args_list, fun, %TaskOptions{} = task_options) do
-        args_list |> Enum.map(fn(arg) ->
+        _ = args_list |> Enum.map(fn(arg) ->
           fn -> fun.(arg); :ok end # fn to return :ok to allow return value be garbage collected.
         end) |> parallel_exec(task_options)
         :ok
@@ -70,7 +73,7 @@ defmodule Paratize.Base do
       @doc """
       `parallel_exec/3` with default task_options.
       """
-      @spec parallel_exec(List.t, TaskOptions.t | Keyword.t) :: List.t
+      @spec parallel_exec([(() -> res)], TaskOptions.t | Keyword.t) :: [res]
       def parallel_exec(fun_list, task_options \\ %TaskOptions{})
       def parallel_exec(fun_list, task_options) when is_list(task_options) do
         parallel_exec(fun_list, struct(TaskOptions, task_options))
