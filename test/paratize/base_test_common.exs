@@ -16,12 +16,12 @@ defmodule Paratize.BaseTest.Common do
         end
 
         {time, result} = :timer.tc fn ->
-          args |> test_impl.parallel_each(worker_fun, %Paratize.TaskOptions{size: 2})
+          args |> test_impl().parallel_each(worker_fun, %Paratize.TaskOptions{size: 2})
         end
 
-        assert Set.equal?(
-          Agent.get(store_pid, &(&1)) |> Enum.into(HashSet.new),
-          [5,4,3,2,1] |> Enum.into(HashSet.new))
+        assert MapSet.equal?(
+          Agent.get(store_pid, &(&1)) |> Enum.into(MapSet.new),
+          [5,4,3,2,1] |> Enum.into(MapSet.new))
         assert result == :ok
         assert div(time, 1000) in 300..500
       end
@@ -36,12 +36,12 @@ defmodule Paratize.BaseTest.Common do
         end
 
         {time, result} = :timer.tc fn ->
-          args |> test_impl.parallel_map(worker_fun, %Paratize.TaskOptions{size: 2})
+          args |> test_impl().parallel_map(worker_fun, %Paratize.TaskOptions{size: 2})
         end
 
-        assert Set.equal?(
-          Agent.get(store_pid, &(&1)) |> Enum.into(HashSet.new),
-          [5,4,3,2,1] |> Enum.into(HashSet.new))
+        assert MapSet.equal?(
+          Agent.get(store_pid, &(&1)) |> Enum.into(MapSet.new),
+          [5,4,3,2,1] |> Enum.into(MapSet.new))
         assert result == [2,4,6,8,10]
         assert div(time, 1000) in 300..500
       end

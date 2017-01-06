@@ -10,15 +10,15 @@ defmodule Paratize.Mixfile do
       elixir: "~> 1.1",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      deps: deps,
-      package: package,
+      deps: deps(),
+      package: package(),
       name: "Paratize",
       source_url: "https://github.com/seantanly/elixir-paratize",
       homepage_url: "https://github.com/seantanly/elixir-paratize",
       description: """
       Elixir library providing some handy parallel processing facilities.
       """,
-      docs: docs,
+      docs: docs(),
     ]
   end
 

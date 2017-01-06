@@ -24,7 +24,7 @@ defmodule Paratize.Pool do
   def parallel_exec(fun_list, %TaskOptions{} = task_options) do
     worker_count = [Enum.count(fun_list), TaskOptions.worker_count(task_options)] |> Enum.min
 
-    worker_pids = for _ <- 1..worker_count, do: spawn_link(__MODULE__, :worker_func, [self])
+    worker_pids = for _ <- 1..worker_count, do: spawn_link(__MODULE__, :worker_func, [self()])
 
     ifun_list =
       fun_list
@@ -61,14 +61,14 @@ defmodule Paratize.Pool do
 
   @doc false
   def worker_func(main_pid) do
-    send main_pid, {self, :get_job}
+    send main_pid, {self(), :get_job}
     receive do
       {:job, {index, fun}} ->
         result = case fun do
           {key, func} when is_function(func) -> {key, func.()}
           _ -> fun.()
         end
-        send main_pid, {self, :job_result, {index, result}}
+        send main_pid, {self(), :job_result, {index, result}}
         worker_func(main_pid)
 
       {:terminate} ->
