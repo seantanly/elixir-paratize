@@ -4,21 +4,20 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.11.4">
-    <title>Paratize.Pool – Paratize v2.1.3</title>
-    <link rel="stylesheet" href="dist/app-1e374caa3d.css" />
-    <script src="dist/sidebar_items.js"></script>
+    <meta name="generator" content="ExDoc v0.14.5">
+    <title>Paratize.Pool – Paratize v2.1.4</title>
+    <link rel="stylesheet" href="dist/app-a07cea761b.css" />
+    
+    <script src="dist/sidebar_items-febd63c80f.js"></script>
   </head>
   <body data-type="modules">
+    <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
 
     <div class="main">
 <button class="sidebar-toggle">
   <i class="icon-menu"></i>
 </button>
 <section class="sidebar">
-  <button class="sidebar-toggle">
-    <i class="icon-menu"></i>
-  </button>
 
   
   <a href="Paratize.html" class="sidebar-projectLink">
@@ -27,7 +26,7 @@
         Paratize
       </h1>
       <h2 class="sidebar-projectVersion">
-        v2.1.3
+        v2.1.4
       </h2>
     </div>
     
@@ -49,28 +48,28 @@
 
     
   </ul>
-
+  <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
-  <div class="sidebar-noResults"></div>
 </section>
 
 <section class="content">
-  <div id="content" class="content-inner">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
 
 
       <h1>
-        <small class="visible-xs">Paratize v2.1.3</small>
+        <small class="visible-xs">Paratize v2.1.4</small>
         Paratize.Pool
         
         
-          <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.3/lib/paratize/pool.ex#L1" title="View Source" class="view-source" rel="help">
+          <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.4/lib/paratize/pool.ex#L1" title="View Source" class="view-source" rel="help">
             <i class="icon-code"></i>
           </a>
         
       </h1>
 
       
-        <section id="moduledoc" class="docstring">
+        <section id="moduledoc">
           <p>Implementation of parallel exec via pool of spawned workers processes.</p>
 <p><a href="Paratize.Pool.html#content"><code class="inline">Paratize.Pool</code></a> implements the <a href="Paratize.Base.html"><code class="inline">Paratize.Base</code></a> behaviour and inherits the implementation for <a href="#parallel_each/3"><code class="inline">parallel_each/3</code></a> and <a href="#parallel_map/3"><code class="inline">parallel_map/3</code></a>.</p>
 <p>True parallelism for the entire workload of functions, in which workers will fetch jobs from the fun_list until empty.</p>
@@ -154,7 +153,7 @@ Returns list of results in order</p>
       
 
       
-        <section id="types" class="types details-list">
+        <section id="types" class="details-list">
           <h1 class="section-heading">
             <a class="hover-link" href="#types">
               <i class="icon-link"></i>
@@ -162,13 +161,55 @@ Returns list of results in order</p>
             Types
           </h1>
           <div class="types-list">
-            <div id="t:arg/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:arg/0">arg</a> :: any</code></pre>
+            <div class="detail" id="t:arg/0">
   
+  <div class="detail-header">
+    <a href="#t:arg/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">arg()</span>
+    
+      <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.4/lib/paratize/pool.ex#L10" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>arg() :: any</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    
+  </section>
 </div>
-<div id="t:res/0" class="type-detail">
-  <pre><code class="elixir"><a href="#t:res/0">res</a> :: any</code></pre>
+<div class="detail" id="t:res/0">
   
+  <div class="detail-header">
+    <a href="#t:res/0" class="detail-link" title="Link to this type">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">res()</span>
+    
+      <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.4/lib/paratize/pool.ex#L10" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>res() :: any</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    
+  </section>
 </div>
 
           </div>
@@ -184,27 +225,28 @@ Returns list of results in order</p>
             Functions
           </h1>
           <div class="detail" id="parallel_each/3">
+  
+    <span id="parallel_each/2" />
+  
   <div class="detail-header">
     <a href="#parallel_each/3" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
     <span class="signature">parallel_each(args_list, fun, task_options \\ %Paratize.TaskOptions{})</span>
-      
-      <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.3/lib/paratize/pool.ex#L10" class="view-source" rel="help" title="View Source">
+    
+      <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.4/lib/paratize/pool.ex#L10" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+    
+      <div class="specs">
         
-          <pre><code class="elixir">parallel_each([<a href="#t:arg/0">arg</a>], (<a href="#t:arg/0">arg</a> -> <a href="#t:res/0">res</a>), <a href="Paratize.TaskOptions.html#t:t/0">Paratize.TaskOptions.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: :ok</code></pre>
+          <pre>parallel_each([<a href="#t:arg/0">arg</a>], (<a href="#t:arg/0">arg</a> -> <a href="#t:res/0">res</a>), <a href="Paratize.TaskOptions.html#t:t/0">Paratize.TaskOptions.t</a> | <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: :ok</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Parallel processing of .each function via <code class="inline">exec/2</code>.
 Returns :ok</p>
@@ -221,27 +263,28 @@ Returns :ok</p>
   </section>
 </div>
 <div class="detail" id="parallel_exec/2">
+  
+    <span id="parallel_exec/1" />
+  
   <div class="detail-header">
     <a href="#parallel_exec/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
     <span class="signature">parallel_exec(fun_list, task_options \\ %Paratize.TaskOptions{})</span>
-      
-      <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.3/lib/paratize/pool.ex#L10" class="view-source" rel="help" title="View Source">
+    
+      <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.4/lib/paratize/pool.ex#L10" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+    
+      <div class="specs">
         
-          <pre><code class="elixir">parallel_exec([(() -> <a href="#t:res/0">res</a>)], <a href="Paratize.TaskOptions.html#t:t/0">Paratize.TaskOptions.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: [<a href="#t:res/0">res</a>]</code></pre>
+          <pre>parallel_exec([(() -> <a href="#t:res/0">res</a>)], <a href="Paratize.TaskOptions.html#t:t/0">Paratize.TaskOptions.t</a> | <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: [<a href="#t:res/0">res</a>]</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Parallel processing of functions via pool of workers.
 Returns the list of result in order.</p>
@@ -252,33 +295,34 @@ Returns the list of result in order.</p>
 <li>task_options - <a href="Paratize.TaskOptions.html"><code class="inline">Paratize.TaskOptions</code></a>
 </li>
 </ul>
-<p>iex&gt; [fn -> 1 end, {:b, fn -> 2 end}, fn -> 3 end] |&gt; Paratize.Pool.parallel_exec
+<p>iex&gt; [fn -&gt; 1 end, {:b, fn -&gt; 2 end}, fn -&gt; 3 end] |&gt; Paratize.Pool.parallel_exec
 [1, {:b,2}, 3]</p>
 
   </section>
 </div>
 <div class="detail" id="parallel_map/3">
+  
+    <span id="parallel_map/2" />
+  
   <div class="detail-header">
     <a href="#parallel_map/3" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
     <span class="signature">parallel_map(args_list, fun, task_options \\ %Paratize.TaskOptions{})</span>
-      
-      <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.3/lib/paratize/pool.ex#L10" class="view-source" rel="help" title="View Source">
+    
+      <a href="https://github.com/seantanly/elixir-paratize/blob/v2.1.4/lib/paratize/pool.ex#L10" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
-  </div>
-  
-    <div class="specs">
-      <h4 class="specs-title">Specs</h4>
-      <div class="specs-list">
+    
+    
+      <div class="specs">
         
-          <pre><code class="elixir">parallel_map([<a href="#t:arg/0">arg</a>], (<a href="#t:arg/0">arg</a> -> <a href="#t:res/0">res</a>), <a href="Paratize.TaskOptions.html#t:t/0">Paratize.TaskOptions.t</a> | <a href="http://elixir-lang.org/docs/stable/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: [<a href="#t:res/0">res</a>]</code></pre>
+          <pre>parallel_map([<a href="#t:arg/0">arg</a>], (<a href="#t:arg/0">arg</a> -> <a href="#t:res/0">res</a>), <a href="Paratize.TaskOptions.html#t:t/0">Paratize.TaskOptions.t</a> | <a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: [<a href="#t:res/0">res</a>]</pre>
         
       </div>
-    </div>
-  
+    
+  </div>
   <section class="docstring">
     <p>Parallel processing of .map function via <code class="inline">exec/2</code>.
 Returns list of results in order.</p>
@@ -301,23 +345,24 @@ Returns list of results in order.</p>
       
 
       
-        <footer class="footer">
-      <p>
-        <span class="line">
-          Built using
-          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.11.4),
-        </span>
-        <span class="line">
-          designed by
-          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.14.5),
           </span>
-      </p>
-      <button class="night-mode-toggle" />
-    </footer>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle" />
+      </footer>
+    </div>
   </div>
 </section>
 </div>
-  <script src="dist/app-6d2e071366.js"></script>
+  <script src="dist/app-4aef34ad5f.js"></script>
   </body>
 </html>
 

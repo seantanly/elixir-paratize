@@ -1,7 +1,7 @@
 defmodule Paratize.Mixfile do
   use Mix.Project
 
-  @version "2.1.3"
+  @version "2.1.4"
 
   def project do
     [
@@ -30,8 +30,7 @@ defmodule Paratize.Mixfile do
     [
       {:credo, ">= 0.0.0", only: [:dev, :test]},
       {:dialyxir, "~> 0.3", only: [:dev]},
-      {:earmark, ">= 0.2.1", only: :docs},
-      {:ex_doc, ">= 0.11.4", only: :docs},
+      {:ex_doc, "~> 0.14", only: :docs},
     ]
   end
 
@@ -41,7 +40,7 @@ defmodule Paratize.Mixfile do
       licenses: ["MIT"],
       links: %{github: "https://github.com/seantanly/elixir-paratize"},
       files: ~w(lib test) ++
-             ~w(CHANGELOG.md LICENSE mix.exs README.md),
+             ~w(CHANGELOG.md LICENSE.md mix.exs README.md),
     ]
   end
 
