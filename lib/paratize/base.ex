@@ -13,7 +13,7 @@ defmodule Paratize.Base do
     * fun_list - list of functions to execute in parallel.
     * task_options - `Paratize.TaskOptions`
   """
-  @callback parallel_exec([(() -> res)], Paratize.TaskOptions.t) :: [res] when res: var
+  @callback parallel_exec([(() -> res)] | [atom: (() -> res)], Paratize.TaskOptions.t) :: [res] when res: var
 
   defmacro __using__(_) do
     quote location: :keep do
