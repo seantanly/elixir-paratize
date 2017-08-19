@@ -1,6 +1,12 @@
 Changelog
 ====
 
+## Version 2.1.5 (2017-08-20)
+
+* Bugfix: Results from `Paratize.Chunk` was overflatten, now nested list structure is preserved.
+* Update docs generated from ex_doc v0.16.2.
+
+
 ## Version 2.1.4 (2017-01-06)
 
 * Silence warnings for Elixir v1.4.
