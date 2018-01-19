@@ -10,6 +10,7 @@ defmodule Paratize.Mixfile do
       elixir: "~> 1.1",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps(),
       package: package(),
       name: "Paratize",
@@ -50,5 +51,17 @@ defmodule Paratize.Mixfile do
       # logo: "path/to/logo.png",
       extras: ~w(CHANGELOG.md LICENSE.md README.md)
     ]
+  end
+
+  defp aliases do
+    [
+      check: ["format --check-formatted --dry-run", "credo", "dialyzer"],
+      "test.prod": ["check", &run_test/1]
+    ]
+  end
+
+  defp run_test(_) do
+    Mix.env(:test)
+    Mix.Tasks.Test.run([])
   end
 end
