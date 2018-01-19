@@ -22,7 +22,7 @@ defmodule Paratize.Chunk do
 
   """
   def parallel_exec(fun_list, %TaskOptions{} = task_options) do
-    worker_count = [Enum.count(fun_list), TaskOptions.worker_count(task_options)] |> Enum.min
+    worker_count = [Enum.count(fun_list), TaskOptions.worker_count(task_options)] |> Enum.min()
 
     fun_list
     |> Enum.chunk(worker_count, worker_count, [])
@@ -40,5 +40,4 @@ defmodule Paratize.Chunk do
       _ -> Task.async(fun)
     end
   end
-
 end

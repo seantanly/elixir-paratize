@@ -8,7 +8,11 @@ defmodule Paratize.TaskOptions do
   * timeout - timeout in ms, integer, default: 5000, exit(:timeout,...) if no result is return by any of the workers within the period. To disable timeout, use `:infinity`.
   """
   defstruct size: :schedulers, timeout: 5000
-  @type t :: %__MODULE__{size: :schedulers | non_neg_integer, timeout: :infinity | non_neg_integer}
+
+  @type t :: %__MODULE__{
+          size: :schedulers | non_neg_integer,
+          timeout: :infinity | non_neg_integer
+        }
 
   @doc """
   Returns the actual worker count based on %Paratize.TaskOptions{}.
@@ -20,5 +24,4 @@ defmodule Paratize.TaskOptions do
       size -> size
     end
   end
-
 end

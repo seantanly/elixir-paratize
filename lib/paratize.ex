@@ -5,5 +5,4 @@ defmodule Paratize do
   There are two implementation strategies, `Paratize.Chunk` and `Paratize.Pool`.
   Checkout `Paratize.TaskOptions` for what are the configurations available.
   """
-
 end

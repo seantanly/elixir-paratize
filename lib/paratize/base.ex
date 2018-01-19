@@ -13,7 +13,8 @@ defmodule Paratize.Base do
     * fun_list - list of functions to execute in parallel.
     * task_options - `Paratize.TaskOptions`
   """
-  @callback parallel_exec([(() -> res)] | [atom: (() -> res)], Paratize.TaskOptions.t) :: [res] when res: var
+  @callback parallel_exec([(() -> res)] | [atom: (() -> res)], Paratize.TaskOptions.t()) :: [res]
+            when res: var
 
   defmacro __using__(_) do
     quote location: :keep do
@@ -27,9 +28,11 @@ defmodule Paratize.Base do
       `parallel_map/3` with default task_options.
       """
       def parallel_map(args_list, fun, task_options \\ %TaskOptions{})
+
       def parallel_map(args_list, fun, task_options) when is_list(task_options) do
         parallel_map(args_list, fun, struct(TaskOptions, task_options))
       end
+
       @doc """
       Parallel processing of .map function via `exec/2`.
       Returns list of results in order.
@@ -39,20 +42,24 @@ defmodule Paratize.Base do
       * fun - function taking in each argument
       * task_options - `Paratize.TaskOptions`
       """
-      @spec parallel_map([arg], (arg -> res), TaskOptions.t | Keyword.t) :: [res]
+      @spec parallel_map([arg], (arg -> res), TaskOptions.t() | Keyword.t()) :: [res]
       def parallel_map(args_list, fun, %TaskOptions{} = task_options) do
-        args_list |> Enum.map(fn(arg) ->
+        args_list
+        |> Enum.map(fn arg ->
           fn -> fun.(arg) end
-        end) |> parallel_exec(task_options)
+        end)
+        |> parallel_exec(task_options)
       end
 
       @doc """
       `parallel_each/3` with default task_options.
       """
       def parallel_each(args_list, fun, task_options \\ %TaskOptions{})
+
       def parallel_each(args_list, fun, task_options) when is_list(task_options) do
         parallel_each(args_list, fun, struct(TaskOptions, task_options))
       end
+
       @doc """
       Parallel processing of .each function via `exec/2`.
       Returns :ok
@@ -62,24 +69,31 @@ defmodule Paratize.Base do
       * fun - function taking in each argument
       * task_options - `Paratize.TaskOptions`
       """
-      @spec parallel_each([arg], (arg -> res), TaskOptions.t | Keyword.t) :: :ok
+      @spec parallel_each([arg], (arg -> res), TaskOptions.t() | Keyword.t()) :: :ok
       def parallel_each(args_list, fun, %TaskOptions{} = task_options) do
-        _ = args_list |> Enum.map(fn(arg) ->
-          fn -> fun.(arg); :ok end # fn to return :ok to allow return value be garbage collected.
-        end) |> parallel_exec(task_options)
+        _ =
+          args_list
+          |> Enum.map(fn arg ->
+            # fn to return :ok to allow return value be garbage collected.
+            fn ->
+              fun.(arg)
+              :ok
+            end
+          end)
+          |> parallel_exec(task_options)
+
         :ok
       end
 
       @doc """
       `parallel_exec/3` with default task_options.
       """
-      @spec parallel_exec([(() -> res)], TaskOptions.t | Keyword.t) :: [res]
+      @spec parallel_exec([(() -> res)], TaskOptions.t() | Keyword.t()) :: [res]
       def parallel_exec(fun_list, task_options \\ %TaskOptions{})
+
       def parallel_exec(fun_list, task_options) when is_list(task_options) do
         parallel_exec(fun_list, struct(TaskOptions, task_options))
       end
-
     end
   end
-
 end
